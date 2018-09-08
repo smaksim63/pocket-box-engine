@@ -8,15 +8,17 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
+import io.pocketbox.engine.GameContext;
 import io.pocketbox.engine.ecs.component.TextureComponent;
 import io.pocketbox.engine.ecs.component.TransformComponent;
 
 import java.util.Comparator;
 
-import static io.pocketbox.engine.Config.*;
+import static io.pocketbox.engine.EcsConst.*;
 
 public class TextureRenderingSystem extends IteratingSystem {
 
+    private final GameContext gameContext;
     private final PolygonSpriteBatch batch;
     private final Camera camera;
     private final Array<Entity> queue;
@@ -25,9 +27,11 @@ public class TextureRenderingSystem extends IteratingSystem {
     private final ComponentMapper<TextureComponent> textureMapper;
     private final ComponentMapper<TransformComponent> transformMapper;
 
-    public TextureRenderingSystem(PolygonSpriteBatch batch,
+    public TextureRenderingSystem(GameContext gameContext,
+                                  PolygonSpriteBatch batch,
                                   Camera camera) {
         super(Family.all(TransformComponent.class, TextureComponent.class).get(), TEXTURE_RENDERING_PRIORITY);
+        this.gameContext = gameContext;
         this.batch = batch;
         this.camera = camera;
         this.queue = new Array<>();
@@ -63,8 +67,8 @@ public class TextureRenderingSystem extends IteratingSystem {
     private void renderTexture(Entity entity) {
         TextureComponent textureComponent = textureMapper.get(entity);
         TransformComponent transformComponent = transformMapper.get(entity);
-        float width = textureComponent.texture.getRegionWidth() * PIXEL_TO_METER;
-        float height = textureComponent.texture.getRegionHeight() * PIXEL_TO_METER;
+        float width = textureComponent.texture.getRegionWidth() * gameContext.gameConfig.pixel2meter;
+        float height = textureComponent.texture.getRegionHeight() * gameContext.gameConfig.pixel2meter;
         float originX = width * 0.5f;
         float originY = height * 0.5f;
         batch.draw(textureComponent.texture,

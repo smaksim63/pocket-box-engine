@@ -25,7 +25,8 @@ public class Player extends GameObject {
         super(gameContext, TAG);
         this.controllerScript = new PlayerControllerScript(gameContext);
         this.playerHealthScript = new PlayerHealthScript(label, hurtVeil);
-        this.cameraScript = new MovementCameraScript(gameContext.worldCamera);
+        this.cameraScript = new MovementCameraScript(gameContext,
+                gameContext.worldCamera);
         add(new TransformComponent(0.f, -2.5f));
         add(new AnimationComponent(gameContext.assetsSource.getAsset("animations/Player/Player.json", SkeletonData.class), "stand"));
         add(new RigidBodyComponent(new BoxCollider()

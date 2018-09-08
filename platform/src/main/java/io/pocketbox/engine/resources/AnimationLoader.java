@@ -12,16 +12,17 @@ import com.badlogic.gdx.utils.Array;
 import com.esotericsoftware.spine.SkeletonBinary;
 import com.esotericsoftware.spine.SkeletonData;
 import com.esotericsoftware.spine.SkeletonJson;
-
-import static io.pocketbox.engine.Config.PIXEL_TO_METER;
+import io.pocketbox.engine.GameContext;
 
 public class AnimationLoader extends AsynchronousAssetLoader<SkeletonData, AnimationLoader.AnimationParameter> {
 
     private static final String TAG = AnimationLoader.class.getName();
+    private final GameContext gameContext;
     private SkeletonData skeletonData;
 
-    public AnimationLoader(FileHandleResolver resolver) {
+    public AnimationLoader(GameContext gameContext, FileHandleResolver resolver) {
         super(resolver);
+        this.gameContext = gameContext;
     }
 
     @Override
@@ -65,11 +66,11 @@ public class AnimationLoader extends AsynchronousAssetLoader<SkeletonData, Anima
             String extension = file.extension();
             if (extension.equalsIgnoreCase("json")) {
                 SkeletonJson json = new SkeletonJson(atlas);
-                json.setScale(scaleFactor * PIXEL_TO_METER);
+                json.setScale(scaleFactor * gameContext.gameConfig.pixel2meter);
                 skeletonData = json.readSkeletonData(file);
             } else {
                 SkeletonBinary binary = new SkeletonBinary(atlas);
-                binary.setScale(scaleFactor * PIXEL_TO_METER);
+                binary.setScale(scaleFactor * gameContext.gameConfig.pixel2meter);
                 skeletonData = binary.readSkeletonData(file);
             }
         } catch (Exception ex) {

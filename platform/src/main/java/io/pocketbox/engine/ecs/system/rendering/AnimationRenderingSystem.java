@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.Array;
 import com.esotericsoftware.spine.SkeletonRenderer;
 import io.pocketbox.engine.ecs.component.AnimationComponent;
 
-import static io.pocketbox.engine.Config.ANIMATION_RENDERING_PRIORITY;
+import static io.pocketbox.engine.EcsConst.ANIMATION_RENDERING_PRIORITY;
 
 public class AnimationRenderingSystem extends IteratingSystem {
 

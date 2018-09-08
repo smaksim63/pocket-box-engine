@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import io.pocketbox.engine.ecs.component.ParticleComponent;
 
-import static io.pocketbox.engine.Config.PARTICLE_RENDERING_PRIORITY;
+import static io.pocketbox.engine.EcsConst.PARTICLE_RENDERING_PRIORITY;
 
 public class ParticlesRenderingSystem extends IteratingSystem {
 

@@ -1,14 +1,6 @@
 package io.pocketbox.engine;
 
-public interface Config {
-    float WORLD_WIDTH = 12.80f;
-    float WORLD_HEIGHT = 7.68f;
-
-    float GUI_WIDTH = 1280;
-    float GUI_HEIGHT = 768;
-
-    float PIXEL_TO_METER = WORLD_WIDTH / GUI_WIDTH;
-
+public interface EcsConst {
     int GAME_LOGIC_SYSTEM_PRIORITY = 9930;
 
     int BODY_TRANSFORM_PRIORITY = 9935;

@@ -7,7 +7,7 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import io.pocketbox.engine.ecs.component.TransformComponent;
 import io.pocketbox.engine.ecs.component.AnimationComponent;
 
-import static io.pocketbox.engine.Config.ANIMATION_TRANSFORM_PRIORITY;
+import static io.pocketbox.engine.EcsConst.ANIMATION_TRANSFORM_PRIORITY;
 
 public class AnimationTransformSystem extends IteratingSystem {
 

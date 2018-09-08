@@ -9,15 +9,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.esotericsoftware.minlog.Log;
 import com.esotericsoftware.spine.SkeletonData;
+import io.pocketbox.engine.GameContext;
 
 public class AssetsSource {
 
     private static final String TAG = AssetsSource.class.getName();
     private AssetManager manager;
 
-    public AssetsSource() {
+    public AssetsSource(GameContext gameContext) {
         this.manager = new AssetManager();
-        this.manager.setLoader(SkeletonData.class, new AnimationLoader(new InternalFileHandleResolver()));
+        this.manager.setLoader(SkeletonData.class, new AnimationLoader(gameContext,
+                new InternalFileHandleResolver()));
     }
 
     public <T> T getAsset(String name, Class<T> tClass) {
@@ -39,7 +41,7 @@ public class AssetsSource {
         return progress;
     }
 
-    public  <T> void loadAssets(String subDirName, Class<T> assetType, String... extensions) {
+    public <T> void loadAssets(String subDirName, Class<T> assetType, String... extensions) {
         FileHandle dir = Gdx.files.internal(subDirName);
         if (!dir.isDirectory()) {
             throw new IllegalArgumentException("Failed requirement.");
@@ -48,7 +50,7 @@ public class AssetsSource {
     }
 
     public <T> void loadAssets(String subDirName, Class<T> assetType, boolean ignoreExtension,
-                                String... extensions) {
+                               String... extensions) {
         FileHandle dir = Gdx.files.internal(subDirName);
         if (!dir.isDirectory()) {
             throw new IllegalArgumentException("Failed requirement.");
@@ -57,7 +59,7 @@ public class AssetsSource {
     }
 
     public <T> void loadAssets(String subDirName, Class<T> assetType,
-                                AssetLoaderParameters<T> parameters, String... extensions) {
+                               AssetLoaderParameters<T> parameters, String... extensions) {
         FileHandle dir = Gdx.files.internal(subDirName);
         if (!dir.isDirectory()) {
             throw new IllegalArgumentException("Failed requirement.");
@@ -66,7 +68,7 @@ public class AssetsSource {
     }
 
     public <T> void loadAssets(String subDirName, Class<T> assetType, boolean ignoreExtension,
-                                AssetLoaderParameters<T> parameters, String... extensions) {
+                               AssetLoaderParameters<T> parameters, String... extensions) {
         FileHandle dir = Gdx.files.internal(subDirName);
         if (!dir.isDirectory()) {
             throw new IllegalArgumentException("Failed requirement.");

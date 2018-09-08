@@ -30,12 +30,12 @@ import io.pocketbox.engine.sound.MusicManager;
 import io.pocketbox.engine.sound.SoundManager;
 
 import static com.esotericsoftware.minlog.Log.LEVEL_DEBUG;
-import static io.pocketbox.engine.DynamicConfig.*;
 
 public class GameContext extends Game {
 
     private Class<? extends GameScreen> startScreenClass;
     public final PlatformResolver resolver;
+    public final GameConfig gameConfig;
     public final AssetsSource assetsSource;
     public final String preferencesNamespace;
     public Preferences preferences;
@@ -53,12 +53,14 @@ public class GameContext extends Game {
 
     public GameContext(Class<? extends GameScreen> startScreen,
                        PlatformResolver resolver,
+                       GameConfig gameConfig,
                        String preferencesNamespace) {
         Log.set(LEVEL_DEBUG);
         this.startScreenClass = startScreen;
         this.resolver = resolver;
+        this.gameConfig = gameConfig;
         this.engine = new PooledEngine();
-        this.assetsSource = new AssetsSource();
+        this.assetsSource = new AssetsSource(this);
         this.preferencesNamespace = preferencesNamespace;
     }
 
@@ -71,11 +73,11 @@ public class GameContext extends Game {
         this.batch = new PolygonSpriteBatch();
         this.preferences = Gdx.app.getPreferences(preferencesNamespace);
 
-        this.worldViewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT);
-        this.worldCamera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);
+        this.worldViewport = new StretchViewport(gameConfig.worldWidth, gameConfig.worldHeight);
+        this.worldCamera = new OrthographicCamera(gameConfig.worldWidth, gameConfig.worldHeight);
 
-        this.guiViewport = new StretchViewport(GUI_WIDTH, GUI_HEIGHT);
-        this.guiCamera = new OrthographicCamera(GUI_WIDTH, GUI_HEIGHT);
+        this.guiViewport = new StretchViewport(gameConfig.guiWidth, gameConfig.guiHeight);
+        this.guiCamera = new OrthographicCamera(gameConfig.guiWidth, gameConfig.guiHeight);
 
         this.world = new World(new Vector2(0, -9.8f), true);
         this.stage = new Stage(guiViewport, batch);
@@ -84,7 +86,7 @@ public class GameContext extends Game {
         engine.addSystem(new AnimationTransformSystem());
         engine.addSystem(new ParticleTransformSystem());
 
-        engine.addSystem(new TextureRenderingSystem(batch, worldCamera));
+        engine.addSystem(new TextureRenderingSystem(this, batch, worldCamera));
         engine.addSystem(new AnimationRenderingSystem(batch));
         engine.addSystem(new ParticlesRenderingSystem(batch));
 //        engine.addSystem(new DebugRenderingSystem(world, worldViewport));

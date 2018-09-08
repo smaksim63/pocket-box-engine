@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import io.pocketbox.engine.ecs.component.RigidBodyComponent;
 import io.pocketbox.engine.ecs.component.TransformComponent;
 
-import static io.pocketbox.engine.Config.BODY_TRANSFORM_PRIORITY;
+import static io.pocketbox.engine.EcsConst.BODY_TRANSFORM_PRIORITY;
 
 public class BodyTransformSystem extends IteratingSystem {
 

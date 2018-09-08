@@ -11,6 +11,9 @@ public class AndroidLauncher extends AndroidApplication {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-        initialize(new GameContext(LoadingScreen.class, new DefaultAndroidResolver(), "POCKET_BOX_ENGINE"), config);
+        GameConfig gameConfig = new GameConfig(1280f, 768f);
+        initialize(new GameContext(LoadingScreen.class,
+                new DefaultAndroidResolver(), gameConfig,
+                "POCKET_BOX_ENGINE"), config);
     }
 }

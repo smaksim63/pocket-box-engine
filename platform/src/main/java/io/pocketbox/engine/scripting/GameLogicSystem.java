@@ -12,7 +12,7 @@ import io.pocketbox.engine.event.EventBus;
 import java.util.HashMap;
 import java.util.Map;
 
-import static io.pocketbox.engine.Config.GAME_LOGIC_SYSTEM_PRIORITY;
+import static io.pocketbox.engine.EcsConst.GAME_LOGIC_SYSTEM_PRIORITY;
 
 public class GameLogicSystem extends IteratingSystem implements ContactListener {
 

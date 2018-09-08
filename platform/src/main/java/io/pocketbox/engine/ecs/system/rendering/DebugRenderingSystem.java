@@ -1,17 +1,14 @@
 package io.pocketbox.engine.ecs.system.rendering;
 
 import com.badlogic.ashley.core.ComponentMapper;
-import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
-import com.badlogic.ashley.core.Family;
-import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.esotericsoftware.spine.SkeletonRendererDebug;
 import io.pocketbox.engine.ecs.component.AnimationComponent;
 
-import static io.pocketbox.engine.Config.DEBUG_RENDERING_PRIORITY;
+import static io.pocketbox.engine.EcsConst.DEBUG_RENDERING_PRIORITY;
 
 public class DebugRenderingSystem extends EntitySystem {
 

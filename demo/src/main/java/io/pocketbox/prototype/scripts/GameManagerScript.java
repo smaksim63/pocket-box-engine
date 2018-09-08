@@ -13,7 +13,6 @@ import io.pocketbox.prototype.objects.Enemy;
 import io.pocketbox.prototype.objects.Player;
 import io.pocketbox.prototype.scripts.event.GameEvent;
 
-import static io.pocketbox.engine.DynamicConfig.*;
 import static io.pocketbox.prototype.scripts.event.GameEvent.ENEMY_KILLED;
 import static io.pocketbox.prototype.scripts.event.GameEvent.PLAYER_KILLED;
 
@@ -76,8 +75,8 @@ public class GameManagerScript extends Script<GameEvent> {
 
     private void drawResult(String message) {
         gameResultLabel.setText(message);
-        gameResultLabel.setPosition(GUI_WIDTH * 0.5f - gameResultLabel.getPrefWidth() * 0.5f,
-                GUI_HEIGHT * 0.5f - gameResultLabel.getPrefHeight() * 0.5f + 200f);
+        gameResultLabel.setPosition(gameContext.gameConfig.guiWidth * 0.5f - gameResultLabel.getPrefWidth() * 0.5f,
+                gameContext.gameConfig.guiHeight * 0.5f - gameResultLabel.getPrefHeight() * 0.5f + 200f);
         gameResultLabel.addAction(Actions.show());
     }
 
@@ -99,7 +98,7 @@ public class GameManagerScript extends Script<GameEvent> {
                     float leftDistance = Math.abs(spawnPointLeft - playerPosition.position.x);
                     float rightDistance = Math.abs(spawnPointRight - playerPosition.position.x);
                     if (leftDistance > rightDistance) {
-                         new Enemy(gameContext, player, spawnPointLeft, spawnPointY);
+                        new Enemy(gameContext, player, spawnPointLeft, spawnPointY);
                     } else {
                         new Enemy(gameContext, player, spawnPointRight, spawnPointY);
                     }

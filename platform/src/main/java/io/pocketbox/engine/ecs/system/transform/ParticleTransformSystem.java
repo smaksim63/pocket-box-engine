@@ -7,7 +7,7 @@ import com.badlogic.ashley.systems.IteratingSystem;
 import io.pocketbox.engine.ecs.component.ParticleComponent;
 import io.pocketbox.engine.ecs.component.TransformComponent;
 
-import static io.pocketbox.engine.Config.PARTICLE_TRANSFORM_PRIORITY;
+import static io.pocketbox.engine.EcsConst.PARTICLE_TRANSFORM_PRIORITY;
 
 public class ParticleTransformSystem extends IteratingSystem {
 
