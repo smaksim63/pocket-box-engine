@@ -4,11 +4,13 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -18,6 +20,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.esotericsoftware.minlog.Log;
 import io.pocketbox.engine.ecs.Box2DBodyListener;
 import io.pocketbox.engine.ecs.component.RigidBodyComponent;
+import io.pocketbox.engine.ecs.system.rendering.DebugRenderingSystem;
 import io.pocketbox.engine.scripting.GameLogicSystem;
 import io.pocketbox.engine.ecs.system.rendering.AnimationRenderingSystem;
 import io.pocketbox.engine.ecs.system.rendering.ParticlesRenderingSystem;
@@ -30,6 +33,7 @@ import io.pocketbox.engine.sound.MusicManager;
 import io.pocketbox.engine.sound.SoundManager;
 
 import static com.esotericsoftware.minlog.Log.LEVEL_DEBUG;
+import static io.pocketbox.engine.GameConfig.*;
 
 public class GameContext extends Game {
 
@@ -49,6 +53,7 @@ public class GameContext extends Game {
     private Viewport worldViewport;
     private Camera guiCamera;
     private Viewport guiViewport;
+    private InputMultiplexer inputMultiplexer;
     private Stage stage;
 
     public GameContext(Class<? extends GameScreen> startScreen,
@@ -89,8 +94,9 @@ public class GameContext extends Game {
         engine.addSystem(new TextureRenderingSystem(this, batch, worldCamera));
         engine.addSystem(new AnimationRenderingSystem(batch));
         engine.addSystem(new ParticlesRenderingSystem(batch));
-//        engine.addSystem(new DebugRenderingSystem(world, worldViewport));
-        engine.addSystem(new GameLogicSystem(world));
+        engine.addSystem(new DebugRenderingSystem(world, worldViewport));
+        GameLogicSystem gameLogicSystem = new GameLogicSystem(worldCamera, world);
+        engine.addSystem(gameLogicSystem);
 
         engine.addEntityListener(Family.all(RigidBodyComponent.class).get(),
                 new Box2DBodyListener(world));
@@ -103,7 +109,15 @@ public class GameContext extends Game {
         } catch (Exception e) {
             throw new IllegalArgumentException("Start screen has'n been created", e);
         }
-        Gdx.input.setInputProcessor(stage);
+        inputMultiplexer = new InputMultiplexer();
+        GestureDetector gestureDetector = new GestureDetector(HALF_TAP_SQUARE_SIZE,
+                TAP_COUNT_INTERVAL,
+                LONG_PRESS_DURATION,
+                MAX_FLING_DELAY,
+                gameLogicSystem);
+        inputMultiplexer.addProcessor(stage);
+        inputMultiplexer.addProcessor(gestureDetector);
+        Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
     public void removeAllGameObjects() {

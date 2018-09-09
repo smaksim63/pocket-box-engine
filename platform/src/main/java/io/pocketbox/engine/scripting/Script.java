@@ -27,6 +27,12 @@ public abstract class Script<E> {
     public void update() {
     }
 
+    public void touchDown(float x, float y, int pointer, int button) {
+    }
+
+    public void pan(float x, float y, float deltaX, float deltaY) {
+    }
+
     public void onDestroy() {
     }
 
