@@ -66,11 +66,11 @@ public class AnimationLoader extends AsynchronousAssetLoader<SkeletonData, Anima
             String extension = file.extension();
             if (extension.equalsIgnoreCase("json")) {
                 SkeletonJson json = new SkeletonJson(atlas);
-                json.setScale(scaleFactor * gameContext.gameConfig.pixel2meter);
+                json.setScale(scaleFactor * gameContext.gameConfig.PIXEL_2_UNIT);
                 skeletonData = json.readSkeletonData(file);
             } else {
                 SkeletonBinary binary = new SkeletonBinary(atlas);
-                binary.setScale(scaleFactor * gameContext.gameConfig.pixel2meter);
+                binary.setScale(scaleFactor * gameContext.gameConfig.PIXEL_2_UNIT);
                 skeletonData = binary.readSkeletonData(file);
             }
         } catch (Exception ex) {

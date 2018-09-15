@@ -47,7 +47,8 @@ public class BoxCollider {
     }
 
     public BoxCollider setAsABox(float w, float h) {
-        this.shape.setAsBox(w, h);
+        this.shape.setAsBox(w * 0.5f,
+                h * 0.5f);
         return this;
     }
 }

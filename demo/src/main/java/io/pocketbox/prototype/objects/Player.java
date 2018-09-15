@@ -34,7 +34,7 @@ public class Player extends GameObject {
                 .setDensity(0f)
                 .setFriction(0.2f)
                 .setRestitution(0f)
-                .setAsABox(0.2f, 0.65f), 0, -0.65f));
+                .setAsABox(0.4f, 1.3f), 0, -0.65f));
         add(controllerScript, cameraScript, playerHealthScript);
         create();
     }

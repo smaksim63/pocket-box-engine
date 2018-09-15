@@ -26,7 +26,7 @@ public class Enemy extends GameObject {
                 .setDensity(0f)
                 .setFriction(0.2f)
                 .setRestitution(0f)
-                .setAsABox(0.2f, 0.5f), 0, -0.42f));
+                .setAsABox(0.4f, 1f), 0, -0.42f));
         add(new EnemyControllerScript(target));
         create();
     }

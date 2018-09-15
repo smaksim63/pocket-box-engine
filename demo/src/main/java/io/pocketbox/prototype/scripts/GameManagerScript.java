@@ -75,8 +75,8 @@ public class GameManagerScript extends Script<GameEvent> {
 
     private void drawResult(String message) {
         gameResultLabel.setText(message);
-        gameResultLabel.setPosition(gameContext.gameConfig.guiWidth * 0.5f - gameResultLabel.getPrefWidth() * 0.5f,
-                gameContext.gameConfig.guiHeight * 0.5f - gameResultLabel.getPrefHeight() * 0.5f + 200f);
+        gameResultLabel.setPosition(gameContext.gameConfig.GUI_WIDTH * 0.5f - gameResultLabel.getPrefWidth() * 0.5f,
+                gameContext.gameConfig.GUI_HEIGHT * 0.5f - gameResultLabel.getPrefHeight() * 0.5f + 200f);
         gameResultLabel.addAction(Actions.show());
     }
 

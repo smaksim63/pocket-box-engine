@@ -78,11 +78,11 @@ public class GameContext extends Game {
         this.batch = new PolygonSpriteBatch();
         this.preferences = Gdx.app.getPreferences(preferencesNamespace);
 
-        this.worldViewport = new StretchViewport(gameConfig.worldWidth, gameConfig.worldHeight);
-        this.worldCamera = new OrthographicCamera(gameConfig.worldWidth, gameConfig.worldHeight);
+        this.worldViewport = new StretchViewport(GameConfig.WORLD_WIDTH, GameConfig.WORLD_HEIGHT);
+        this.worldCamera = new OrthographicCamera(GameConfig.WORLD_WIDTH, GameConfig.WORLD_HEIGHT);
 
-        this.guiViewport = new StretchViewport(gameConfig.guiWidth, gameConfig.guiHeight);
-        this.guiCamera = new OrthographicCamera(gameConfig.guiWidth, gameConfig.guiHeight);
+        this.guiViewport = new StretchViewport(GameConfig.GUI_WIDTH, GameConfig.GUI_HEIGHT);
+        this.guiCamera = new OrthographicCamera(GameConfig.GUI_WIDTH, GameConfig.GUI_HEIGHT);
 
         this.world = new World(new Vector2(0, -9.8f), true);
         this.stage = new Stage(guiViewport, batch);

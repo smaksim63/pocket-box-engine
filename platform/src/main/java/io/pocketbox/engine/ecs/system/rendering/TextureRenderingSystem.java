@@ -67,8 +67,8 @@ public class TextureRenderingSystem extends IteratingSystem {
     private void renderTexture(Entity entity) {
         TextureComponent textureComponent = textureMapper.get(entity);
         TransformComponent transformComponent = transformMapper.get(entity);
-        float width = textureComponent.texture.getRegionWidth() * gameContext.gameConfig.pixel2meter;
-        float height = textureComponent.texture.getRegionHeight() * gameContext.gameConfig.pixel2meter;
+        float width = textureComponent.texture.getRegionWidth() * gameContext.gameConfig.PIXEL_2_UNIT;
+        float height = textureComponent.texture.getRegionHeight() * gameContext.gameConfig.PIXEL_2_UNIT;
         float originX = width * 0.5f;
         float originY = height * 0.5f;
         batch.draw(textureComponent.texture,
